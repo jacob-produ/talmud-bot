@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>תלמוד</title>
+        <style>
+            /* בסיס */
+            body {
+                font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f7f9fc;
+                color: #222;
+                line-height: 1.5;
+                direction: rtl;
+                text-align: right;
+            }
+
+            h1 {
+                background-color: #2c7a7b;
+                color: #fff;
+                margin: 0;
+                font-weight: 700;
+                font-size: 1.8rem;
+                letter-spacing: 0.05em;
+                user-select: none;
+                text-align: center;
+            }
+
+            form {
+                background: #fff;
+                max-width: 650px;
+                margin: 2rem auto 3rem;
+                padding: 2rem 2.5rem;
+                border-radius: 12px;
+                box-shadow: 0 8px 20px rgb(0 0 0 / 0.08);
+                box-sizing: border-box;
+            }
+
+            .form-section {
+                margin-bottom: 1.5rem;
+            }
+
+            label {
+                display: block;
+                margin-bottom: 0.5rem;
+                font-weight: 600;
+                font-size: 1rem;
+                cursor: pointer;
+                color: #344054;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="number"],
+            input[type="password"],
+            select {
+                width: 100%;
+                padding: 0.45rem 0.75rem;
+                font-size: 1rem;
+                border: 1.6px solid #cbd5e1;
+                border-radius: 6px;
+                box-sizing: border-box;
+                transition: border-color 0.25s ease;
+                direction: rtl;
+                text-align: right;
+                color: #2d3748;
+            }
+
+            input[type="text"]:focus,
+            input[type="date"]:focus,
+            input[type="password"]:focus,
+            select:focus {
+                border-color: #2c7a7b;
+                outline: none;
+                box-shadow: 0 0 5px rgba(44, 122, 123, 0.5);
+            }
+
+            input[type="file"] {
+                padding: 0.4rem 0.75rem;
+                font-size: 1rem;
+                border-radius: 6px;
+                border: 1.6px solid #cbd5e1;
+                width: 100%;
+                box-sizing: border-box;
+                cursor: pointer;
+                color: #2d3748;
+                direction: ltr;
+                text-align: left;
+            }
+
+            /* רדיו בכמה שורות עם רווח */
+            #inputMethodSection input[type="radio"] {
+                width: auto;
+                margin-left: 8px;
+                cursor: pointer;
+                vertical-align: middle;
+            }
+
+            #skipExistingStudents input[type="checkbox"] {
+                width: auto;
+                margin-left: 8px;
+                cursor: pointer;
+                vertical-align: middle;
+            }
+
+            #inputMethodSection label {
+                display: inline-block;
+                margin-bottom: 0;
+                margin-right: 4px;
+                font-weight: 600;
+            }
+
+            #skipExistingStudents label {
+                display: inline-block;
+                margin-bottom: 0;
+                margin-right: 4px;
+                font-weight: 600;
+            }
+
+            button {
+                width: 100%;
+                padding: 0.75rem 0;
+                font-size: 1.1rem;
+                font-weight: 700;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                color: white;
+                background-color: #2c7a7b;
+                transition: background-color 0.3s ease;
+                user-select: none;
+                box-shadow: 0 4px 10px rgb(44 122 123 / 0.4);
+            }
+
+            button:hover:not(:disabled) {
+                background-color: #276666;
+            }
+
+            button:disabled {
+                background-color: #94a3b8;
+                cursor: not-allowed;
+                box-shadow: none;
+            }
+
+            #downloadTemplate {
+                background-color: #3182ce;
+                margin-bottom: 1rem;
+                box-shadow: 0 4px 10px rgb(49 130 206 / 0.4);
+            }
+
+            #downloadTemplate:hover:not(:disabled) {
+                background-color: #2563eb;
+            }
+
+            #result {
+                max-width: 650px;
+                margin: 0 auto 3rem;
+                background-color: #fff;
+                padding: 1.6rem 2rem;
+                border-radius: 10px;
+                box-shadow: 0 6px 18px rgb(0 0 0 / 0.06);
+                white-space: pre-wrap;
+                font-family: Consolas, monospace;
+                font-size: 0.95rem;
+                color: #1a202c;
+                direction: rtl;
+                text-align: right;
+            }
+
+            /* Progress Bar */
+            #progressContainer {
+                max-width: 650px;
+                margin: -2rem auto 3rem;
+                background-color: #fff;
+                padding: 1rem 1.5rem 1.2rem;
+                border-radius: 10px;
+                box-shadow: 0 6px 18px rgb(0 0 0 / 0.06);
+                display: none;
+                box-sizing: border-box;
+            }
+            #progressLabel {
+                font-weight: 600;
+                color: #344054;
+                margin-bottom: 0.5rem;
+            }
+            #progressBarTrack {
+                width: 100%;
+                height: 12px;
+                background: #e2e8f0;
+                border-radius: 999px;
+                overflow: hidden;
+            }
+            #progressBarFill {
+                height: 100%;
+                width: 0%;
+                background: linear-gradient(90deg, #2c7a7b, #2aa7a9);
+                border-radius: 999px;
+                transition: width 0.4s ease;
+            }
+            #progressText {
+                margin-top: 0.5rem;
+                font-size: 0.9rem;
+                color: #475569;
+            }
+
+            /* Popup */
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.48);
+                display: none;
+                z-index: 1000;
+            }
+
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: white;
+                border-radius: 14px;
+                padding: 2rem 2.5rem;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+                max-width: 380px;
+                width: 90vw;
+                z-index: 1100;
+                display: none;
+                direction: rtl;
+                text-align: right;
+            }
+
+            .popup h2 {
+                margin-top: 0;
+                margin-bottom: 1.4rem;
+                font-weight: 700;
+                color: #1a202c;
+            }
+
+            .popup label {
+                font-weight: 600;
+                margin-bottom: 0.4rem;
+                display: block;
+                color: #2d3748;
+            }
+
+            .popup input[type="text"],
+            .popup input[type="password"] {
+                margin-bottom: 1rem;
+                border: 1.5px solid #cbd5e1;
+                border-radius: 6px;
+                padding: 0.5rem 0.75rem;
+                width: 100%;
+                font-size: 1rem;
+                color: #2d3748;
+                direction: rtl;
+                text-align: right;
+            }
+
+            /* Error styling */
+            .error {
+                border-color: #e53e3e !important;
+                background-color: #fff5f5 !important;
+            }
+
+            .error-message {
+                color: #e53e3e;
+                font-size: 0.85rem;
+                margin-top: -0.75rem;
+                margin-bottom: 0.8rem;
+                display: block;
+                text-align: right;
+                direction: rtl;
+            }
+
+            .input-error {
+                border: 2px solid red !important;
+                background-color: #ffe6e6;
+              }
+        </style>
+    </head>
+    <body>
+        <h1>תלמוד</h1>
+
+        <form id="actionForm" method="post" enctype="multipart/form-data" novalidate>
+            <div class="form-section">
+                <label for="action">בחר פעולהה:</label>
+                <select id="action" name="action" required>
+                    <option value="" disabled selected>בחר אפשרות</option>
+                    <option value="add_students">הוספת תלמידים</option>
+                    <option value="remove_students">מחיקת תלמידים</option>
+                    <option value="approve_students">אישור מעבר תלמידים</option>
+                    <option value="reject_students">דחיית מעבר תלמידים</option>
+                </select>
+            </div>
+            <div id="skip_students" class="form-section" style="display:none;">
+                <input type="checkbox" id="skipExistingStudents" name="skipExistingStudents">
+                <label for="skipExistingStudents" style="display:inline; margin-left:8px;">דלג על סטודנטים רשומים</label>
+            </div>
+            <div id="inputMethodSection" class="form-section" style="display:none;">
+                <label>בחר אופן הזנה:</label>
+                <input type="radio" id="inputFile" name="inputMethod" value="file" checked />
+                <label for="inputFile" style="display:inline; margin-left:8px;">העלאת קובץ</label>
+
+                <input type="radio" id="inputManual" name="inputMethod" value="manual" />
+                <label for="inputManual" style="display:inline;">הזנה ידנית</label>
+            </div>
+
+            <div class="form-section" id="fileSection">
+                <label for="file">העלה קובץ:</label>
+                <input type="file" id="file" name="file" accept=".xlsx" />
+            </div>
+
+            <div id="manualStudentForm" class="form-section" style="display:none;">
+                <label for="manualUsername">שם משתמש:</label>
+                <input type="text" id="manualUsername" name="manualUsername" pattern="[A-Za-zא-ת\s]+" required/>
+
+                <label for="manualPassword">סיסמא:</label>
+                <input type="password" id="manualPassword" name="manualPassword" required/>
+
+                <label for="firstName">שם פרטי:</label>
+                <input type="text" id="firstName" name="firstName" pattern="[A-Za-zא-ת\s]+" required/>
+
+                <label for="lastName">שם משפחה:</label>
+                <input type="text" id="lastName" name="lastName" pattern="[A-Za-zא-ת\s]+" required/>
+
+                <label for="branchNum">מספר סניף:</label>
+                <input type="text" maxlength="2" minlength="2" placeholder="00" inputmode="numeric" id="branchNum" name="branchNum" required/>
+
+                <label for="idType">סוג מזהה:</label>
+                <select id="idType" name="idType" required>
+                    <option value="" selected>בחר</option>
+                    <option value="1">תעודת זהות</option>
+                    <option value="2">דרכון</option>
+                </select>
+
+                <label for="origin">ארץ מוצא:</label>
+                <select id="origin" name="origin" required>
+                    <option value="-1">בחירה</option>
+                    <option value="710">ארצות הברית</option>
+                    <option value="620">בלגיה</option>
+                    <option value="590">הממלכה המאוחדת</option>
+                    <option value="640">צרפת</option>
+                    <option value="700">קנדה</option>
+                    <option value="-1">-----</option>
+                    <option value="317">אבחזיסטאן</option>
+                    <option value="254">אוגנדה</option>
+                    <option value="315">אוזבקיסטן</option>
+                    <option value="510">אוסטריה</option>
+                    <option value="860">אוסטרליה</option>
+                    <option value="305">אוקראינה</option>
+                    <option value="820">אורגוואי</option>
+                    <option value="741">אזור תעלת פנמה</option>
+                    <option value="311">אזרביג'אן</option>
+                    <option value="670">איטליה</option>
+                    <option value="885">איי גילברט ואליס</option>
+                    <option value="738">איי הבתולה</option>
+                    <option value="884">איי ווליס ופוטונה</option>
+                    <option value="739">איי טורקס וקייקוס</option>
+                    <option value="864">איי נורפולק</option>
+                    <option value="289">איי סיישל</option>
+                    <option value="832">איי פאלקלנד</option>
+                    <option value="888">איי פיגי</option>
+                    <option value="278">איי קומורו</option>
+                    <option value="887">איי קוק</option>
+                    <option value="733">איי קיימן</option>
+                    <option value="219">איי קייפ וורדה</option>
+                    <option value="861">איי שלמה הבריטיים</option>
+                    <option value="130">אינדונזיה</option>
+                    <option value="581">איסלנד</option>
+                    <option value="691">אירופה לא ידוע</option>
+                    <option value="600">אירלנד</option>
+                    <option value="90">אירן</option>
+                    <option value="724">אל סלבדור</option>
+                    <option value="440">אלבניה</option>
+                    <option value="210">אלגיריה</option>
+                    <option value="852">אמריקה לא ידוע</option>
+                    <option value="281">אנגולה</option>
+                    <option value="662">אנדורה</option>
+                    <option value="758">אנטיגואה וברבודה</option>
+                    <option value="303">אסטוניה</option>
+                    <option value="190">אסיה לא ידוע</option>
+                    <option value="100">אפגניסטן</option>
+                    <option value="290">אפריקה לא ידוע</option>
+                    <option value="780">אקואדור</option>
+                    <option value="830">ארגנטינה</option>
+                    <option value="249">אריתראה</option>
+                    <option value="9">ארמניה</option>
+                    <option value="710">ארצות הברית</option>
+                    <option value="250">אתיופיה</option>
+                    <option value="905">בדרך לארץ</option>
+                    <option value="735">בהמס</option>
+                    <option value="115">בוטן</option>
+                    <option value="271">בוטסואנה</option>
+                    <option value="420">בולגריה</option>
+                    <option value="800">בוליביה</option>
+                    <option value="413">בוסניה הרצגובינה</option>
+                    <option value="285">בורונדי</option>
+                    <option value="217">בורקינה פאסו</option>
+                    <option value="61">בחריין</option>
+                    <option value="304">בילורוסיה</option>
+                    <option value="906">בלב ים</option>
+                    <option value="620">בלגיה</option>
+                    <option value="269">בליז</option>
+                    <option value="116">בנגלדש</option>
+                    <option value="214">בנין )דהומי(</option>
+                    <option value="732">ברבדוס</option>
+                    <option value="134">ברוניי</option>
+                    <option value="810">ברזיל</option>
+                    <option value="300">ברית המועצות</option>
+                    <option value="731">ברמודה</option>
+                    <option value="216">גאנה</option>
+                    <option value="287">גבון</option>
+                    <option value="757">גואדאלופ</option>
+                    <option value="135">גואם</option>
+                    <option value="726">גווטאמלה</option>
+                    <option value="812">גויאנה</option>
+                    <option value="811">גויאנה הצרפתית</option>
+                    <option value="251">גיבוטי</option>
+                    <option value="661">גיברלטר</option>
+                    <option value="207">גינאה</option>
+                    <option value="206">גינאה ביסאו</option>
+                    <option value="865">גינאה החדשה</option>
+                    <option value="288">גינאה המשוונית</option>
+                    <option value="205">גמביה</option>
+                    <option value="737">גמייקה</option>
+                    <option value="308">גרוזיה</option>
+                    <option value="500">גרמניה</option>
+                    <option value="502">גרמניה המזרחית</option>
+                    <option value="501">גרמניה המערבית</option>
+                    <option value="753">גרנדה</option>
+                    <option value="751">דומיניקה</option>
+                    <option value="580">דנמרק</option>
+                    <option value="850">דרום אמריקה</option>
+                    <option value="270">דרום אפריקה</option>
+                    <option value="736">האיטי</option>
+                    <option value="863">האיים ההברדיים</option>
+                    <option value="762">האנטילים ההולנדים</option>
+                    <option value="110">הודו</option>
+                    <option value="610">הולנד</option>
+                    <option value="141">הונג קונג</option>
+                    <option value="540">הונגריה</option>
+                    <option value="725">הונדורס</option>
+                    <option value="590">הממלכה המאוחדת</option>
+                    <option value="734">הרפ הדומיניקנית</option>
+                    <option value="125">ויטנאם</option>
+                    <option value="126">ויטנאם הדרומית</option>
+                    <option value="760">ונצואלה</option>
+                    <option value="672">ותיקן</option>
+                    <option value="283">זאיר</option>
+                    <option value="259">זימבאבווה</option>
+                    <option value="261">זמביה</option>
+                    <option value="218">חוף השנהב</option>
+                    <option value="314">טג'יקיסטאן</option>
+                    <option value="215">טוגו</option>
+                    <option value="881">טונגה</option>
+                    <option value="133">טיוון</option>
+                    <option value="132">טימור הפורטוגלית</option>
+                    <option value="201">טנגר</option>
+                    <option value="255">טנזניה</option>
+                    <option value="761">טרינידד וטובגו</option>
+                    <option value="910">יהודה ושומרון</option>
+                    <option value="410">יוגוסלביה</option>
+                    <option value="430">יוון</option>
+                    <option value="160">יפן</option>
+                    <option value="40">ירדן</option>
+                    <option value="51">כווית</option>
+                    <option value="64">כמר א ע מ</option>
+                    <option value="990">לא ידוע</option>
+                    <option value="901">לא מוגדר</option>
+                    <option value="0">לא רשום</option>
+                    <option value="8">לא רשום )בוטל(</option>
+                    <option value="124">לאוס</option>
+                    <option value="30">לבנון</option>
+                    <option value="230">לוב</option>
+                    <option value="630">לוכסמבורג</option>
+                    <option value="302">לטביה</option>
+                    <option value="209">ליבריה</option>
+                    <option value="301">ליטא</option>
+                    <option value="521">ליכטנשטיין</option>
+                    <option value="272">לסוטו</option>
+                    <option value="203">מאוריטניה</option>
+                    <option value="276">מאוריציוס</option>
+                    <option value="212">מאלי</option>
+                    <option value="275">מדגסקר</option>
+                    <option value="262">מוזמביק</option>
+                    <option value="307">מולדובה</option>
+                    <option value="150">מונגוליה</option>
+                    <option value="752">מונסרת</option>
+                    <option value="641">מונקו</option>
+                    <option value="120">מיאנמר )בורמה(</option>
+                    <option value="263">מלאווי</option>
+                    <option value="117">מלדיבים</option>
+                    <option value="127">מלזיה</option>
+                    <option value="673">מלטה</option>
+                    <option value="240">מצרים</option>
+                    <option value="142">מקאו</option>
+                    <option value="414">מקדוניה</option>
+                    <option value="720">מקסיקו</option>
+                    <option value="200">מרוקו</option>
+                    <option value="202">מרוקו הספרדית</option>
+                    <option value="756">מרטיניק</option>
+                    <option value="750">מרכז אמריקה</option>
+                    <option value="886">נאורו</option>
+                    <option value="570">נורבגיה</option>
+                    <option value="211">ניגר</option>
+                    <option value="213">ניגריה</option>
+                    <option value="870">ניו זילנד</option>
+                    <option value="721">ניקרגואה</option>
+                    <option value="274">נמיביה</option>
+                    <option value="114">נפאל</option>
+                    <option value="245">סאו טומה ופרינציפה</option>
+                    <option value="241">סודן</option>
+                    <option value="273">סווזילנד</option>
+                    <option value="252">סומליה</option>
+                    <option value="20">סוריה</option>
+                    <option value="813">סורינם</option>
+                    <option value="277">סט הלנה</option>
+                    <option value="754">סט וינסנט</option>
+                    <option value="755">סט. לוציה</option>
+                    <option value="208">סיירה ליאונה</option>
+                    <option value="140">סין</option>
+                    <option value="122">סינגפור</option>
+                    <option value="113">סיקים</option>
+                    <option value="411">סלובניה</option>
+                    <option value="532">סלובקיה</option>
+                    <option value="882">סמואה</option>
+                    <option value="883">סמואה המערבית</option>
+                    <option value="671">סן מרינו</option>
+                    <option value="204">סנגל</option>
+                    <option value="660">ספרד</option>
+                    <option value="415">סרביה</option>
+                    <option value="112">סרי לנקה )צילון(</option>
+                    <option value="80">עדן</option>
+                    <option value="62">עומן</option>
+                    <option value="50">עירק</option>
+                    <option value="60">ערב הסעודית</option>
+                    <option value="866">פאפואה</option>
+                    <option value="310">פולין</option>
+                    <option value="889">פולינזיה הצרפתית</option>
+                    <option value="711">פורטו ריקו</option>
+                    <option value="650">פורטוגל</option>
+                    <option value="131">פיליפינים</option>
+                    <option value="550">פינלנד</option>
+                    <option value="740">פנמה</option>
+                    <option value="111">פקיסטן</option>
+                    <option value="831">פרגוואי</option>
+                    <option value="790">פרו</option>
+                    <option value="242">צאד</option>
+                    <option value="840">צ'ילה</option>
+                    <option value="530">צכוסלובקיה</option>
+                    <option value="531">צכיה</option>
+                    <option value="640">צרפת</option>
+                    <option value="730">קובה</option>
+                    <option value="770">קולומביה</option>
+                    <option value="286">קונגו</option>
+                    <option value="723">קוסטה ריקה</option>
+                    <option value="151">קוריאה</option>
+                    <option value="153">קוריאה הדרומית</option>
+                    <option value="152">קוריאה הצפונית</option>
+                    <option value="312">קזחסטאן</option>
+                    <option value="63">קטר</option>
+                    <option value="316">קירג'זסטאן</option>
+                    <option value="862">קלדוניה החדשה</option>
+                    <option value="123">קמבודיה</option>
+                    <option value="244">קמרון</option>
+                    <option value="700">קנדה</option>
+                    <option value="253">קניה</option>
+                    <option value="10">קפריסין</option>
+                    <option value="412">קרואטיה</option>
+                    <option value="279">ראוניון</option>
+                    <option value="284">רואנדה</option>
+                    <option value="260">רודזיה</option>
+                    <option value="400">רומניה</option>
+                    <option value="306">רוסיה</option>
+                    <option value="920">רמת הגולן</option>
+                    <option value="243">רפ מרכז אפריקנית</option>
+                    <option value="930">רצועת עזה וסיני</option>
+                    <option value="880">שאר ארצות אוקיאניה</option>
+                    <option value="690">שאר ארצות אירופה</option>
+                    <option value="180">שאר ארצות אסיה</option>
+                    <option value="280">שאר ארצות אפריקה</option>
+                    <option value="666">שגוי הסבה</option>
+                    <option value="560">שוודיה</option>
+                    <option value="520">שוויץ</option>
+                    <option value="121">תאילנד</option>
+                    <option value="220">תוניסיה</option>
+                    <option value="15">תורכיה</option>
+                    <option value="313">תורכמניסטאן</option>
+                    <option value="70">תימן</option>
+                    <option value="71">תימן הדמוקרטית</option>
+                </select>
+
+                <label for="idNumber">מספר מזהה:</label>
+                <input type="number" id="idNumber" name="idNumber" required/>
+
+                <label for="birthDate">תאריך לידה:</label>
+                <input type="date" id="birthDate" name="birthDate" placeholder="MM/DD/YYYY" required/>
+
+                <label for="gender">מגדר:</label>
+                <select id="gender" name="gender" required>
+                    <option value="" selected>בחר</option>
+                    <option value="0">לא רשום</option>
+                    <option value="1">זכר</option>
+                    <option value="2">נקבה</option>
+                </select>
+
+                <label for="maritalStatus">מצב משפחתי:</label>
+                <select id="maritalStatus" name="maritalStatus" required>
+                    <option value="" selected>בחר</option>
+                    <option value="10">רווק/ה</option>
+                    <option value="20">נשוי/אה</option>
+                    <option value="21">פוליגם</option>
+                    <option value="30">גרוש/ה</option>
+                    <option value="40">אלמן/נה</option>
+                </select>
+
+                <label for="studyType">סוג לימודים:</label>
+                <select id="studyType" name="studyType" required>
+                    <option value="" selected>בחר</option>
+                    <option value="300">300 ישיבה גבוהה בנים</option>
+                    <option value="315">315 ישיבה מעודדת גיוס 15</option>
+                    <option value="330">330 ישיבה מעודדת גיוס 30</option>
+                    <option value="345">345 ישיבה מעודדת גיוס 45</option>
+                    <option value="350">350 ישיבה גבוהה ציונית</option>
+                    <option value="400">400 ישיבות גבוהות מגייסות</option>
+                    <option value="500">500 ישיבה גבוהה בשילוב הכשרה תעסוקתית</option>
+                    <option value="550">550 כולל בשילוב הכשרה תעסוקתית</option>
+                    <option value="600">600 כולל אברכים יום שלם </option>
+                    <option value="605">605 כולל אברכים יום שלם </option>
+                    <option value="700">700 כולל אברכים חצי  יום בוקר</option>
+                    <option value="705">705 כולל אברכים חצי יום בוקר </option>
+                    <option value="706">706 כולל בוקר בגרעין תורני</option>
+                    <option value="708">708 כולל אברכים חצי  יום בוקר בשילוב שירות אזרחי</option>
+                    <option value="720">720 כולל אברכים חצי  יום אחה"צ</option>
+                    <option value="725">725 כולל אברכים חצי יום אחה"צ </option>
+                    <option value="726">726 כולל אחרי הצהריים בגרעין תורני</option>
+                    <option value="728">728 כולל אברכים חצי  יום אחה"צ בשילוב שירות אזרחי</option>
+                    <option value="900">900 ישיבת הסדר - בנים</option>
+                    <option value="924">924 ישיבת הסדר - שילוב 24-26 חודשי שירות</option>
+                    <option value="932">932 ישיבת הסדר - שילוב 32 חודשי שירות</option>
+                    <option value="950">950 מסלול שש שנתי-הסדר</option>
+                    <option value="1000">1000 כולל האלף - רבנים</option>
+                    <option value="1050">1050 כולל האלף - דיינים</option>
+                    <option value="1300">1300 מדרשה לבנות, ישיבה גבוהה בנות</option>
+                    <option value="1400">1400 בנים במוסד משותף לבנים ובנות</option>
+                    <option value="1450">1450 בנות במוסד משותף לבנים ובנות</option>
+                    <option value="1500">1500 בנים במוסד ליוצאי אתיופיה</option>
+                    <option value="1550">1550 בנות במוסד ליוצאי אתיופיה</option>
+                    <option value="1600">1600 כולל יום שלם לנשים</option>
+                    <option value="1800">1800 מוסד אקדמאי לרווקים </option>
+                    <option value="1850">1850 מוסד אקדמאי לנשואים </option>
+                    <option value="1900">1900 ישיבת הסדר - בנות</option>
+                    <option value="1924">1924 מדרשת הסדר בנות - שילוב 24-26 חודשי שירות</option>
+                    <option value="1932">1932 מדרשת הסדר בנות - שילוב 32 חודשי שירות</option>
+                    <option value="3015">3015 ישיבה מעודדת גיוס 15 בשילוב הכשרה תעסוקתית</option>
+                    <option value="3030">3030 ישיבה מעודדת גיוס 30 בשילוב הכשרה תעסוקתית</option>
+                    <option value="3045">3045 ישיבה מעודדת גיוס 45 בשילוב הכשרה תעסוקתית</option>
+                    <option value="3060">3060 ישיבה מעודדת גיוס 60 בשילוב הכשרה תעסוקתית</option>
+                    <option value="3900">3900 הסדר חרדי-24 חודשי שירות בשילוב הכשרה</option>
+                    <option value="7900">7900 כולל לגימלאים מת"ל</option>
+                </select>
+            </div>
+            <button type="button" id="downloadTemplate" disabled>הורד טמפלט</button>
+            <button type="submit">שלח</button>
+        </form>
+
+        <div id="result" class="form-section"></div>
+
+        <div id="progressContainer">
+            <div id="progressLabel">התהליך מתבצע...</div>
+            <div id="progressBarTrack">
+                <div id="progressBarFill"></div>
+            </div>
+            <div id="progressText">0%</div>
+        </div>
+
+        <div class="overlay" id="overlay"></div>
+
+        <div class="popup" id="popup">
+            <h2>הכנס פרטי משתמש</h2>
+            <form id="credentialsForm" novalidate>
+                <label for="username">שם משתמש:</label>
+                <input type="text" id="username" name="username" required />
+
+                <label for="password">סיסמא:</label>
+                <input type="password" id="password" name="password" required />
+
+                <div id="branchField" style="visibility:hidden;">
+                    <label for="branch">סניף:</label>
+                    <input type="text" id="branch" name="branch" />
+                </div>
+
+                <button type="button" id="submitCredentials">שלח</button>
+            </form>
+        </div>
+
+        <script>
+            // Progress helpers
+            let progressTimer = null;
+            function showProgress() {
+                const c = document.getElementById("progressContainer");
+                const f = document.getElementById("progressBarFill");
+                const t = document.getElementById("progressText");
+                f.style.width = '0%';
+                t.textContent = '0%';
+                c.style.display = 'block';
+            }
+            function hideProgress() {
+                const c = document.getElementById("progressContainer");
+                c.style.display = 'none';
+            }
+            function setProgress(pct, status) {
+                const f = document.getElementById("progressBarFill");
+                const t = document.getElementById("progressText");
+                const label = document.getElementById("progressLabel");
+                const val = Math.max(0, Math.min(100, parseInt(pct || 0)));
+                f.style.width = val + '%';
+                t.textContent = val + '%';
+                label.textContent = status === 'done' ? 'הושלם' : (status === 'error' ? 'שגיאה בתהליך' : 'התהליך מתבצע...');
+            }
+            async function pollProgress(action) {
+                try {
+                    const res = await fetch(`/talmud_progress?action=${encodeURIComponent(action)}`, { method: 'GET', cache: 'no-cache' });
+                    if (!res.ok) return;
+                    const json = await res.json();
+                    if (json && json.data) {
+                        setProgress(json.data.progress, json.data.status);
+                        if (json.data.status === 'done' || json.data.status === 'error' || json.data.progress >= 100) {
+                            clearInterval(progressTimer);
+                            progressTimer = null;
+                        }
+                    }
+                } catch (_) { /* ignore */ }
+            }
+
+            document.getElementById("actionForm").addEventListener("submit", async function (e) {
+		        e.preventDefault();
+
+                const inputMethodSection = document.getElementById("inputMethodSection");
+                const fileSection = document.getElementById("fileSection");
+                const manualStudentForm = document.getElementById("manualStudentForm");
+                const downloadTemplate = document.getElementById("downloadTemplate");
+                const branchField = document.getElementById("branchField");
+                const branchInput = document.getElementById("branch");
+                const skip_students = document.getElementById("skip_students");
+                const inputMethod = document.querySelector('input[name="inputMethod"]:checked')?.value;
+                const skipExistingStudents = document.getElementById("skipExistingStudents");
+
+                const formData = new FormData(this);
+                formData.append("inputMethod", inputMethod);
+                const action = document.getElementById("action").value;
+                let isValid = true;
+
+                if (action == "add_students" && inputMethod === "manual") {
+                    const manualFields = ["manualUsername", "manualPassword", "firstName", "lastName", "branchNum", "idType", "origin", "idNumber", "birthDate",
+                    "gender", "maritalStatus", "studyType"];
+
+                    for (const field of manualFields) {
+                        const el = document.getElementById(field);
+                        if (!el || !el.value.trim()) {
+                            el?.focus();
+                            el.classList.add("input-error");
+                            isValid = false;
+                        }
+                        else
+                        {
+                            el.classList.remove("input-error");
+                        }
+                        formData.append(field, el.value);
+                    }
+                    formData.append("skipExistingStudents", skipExistingStudents.checked ? "true" : "false");
+                    formData.append("manual_fields", manualFields);
+                }
+                if (!isValid) return;
+
+                if (inputMethod == "file")
+                {
+                    const fileInput = document.getElementById("file");
+                    if (fileInput.files.length == 0)
+                    {
+                        fileInput.focus()
+                        return;
+                    }
+                }
+                try {
+                    // Show and start polling progress
+                    showProgress();
+                    const actionVal = document.getElementById("action").value;
+                    if (progressTimer) { clearInterval(progressTimer); }
+                    progressTimer = setInterval(() => pollProgress(actionVal), 2000);
+                    // Kick an immediate poll to show 0% quickly
+                    pollProgress(actionVal);
+                    const res = await fetch("/talmud", {
+                        method: "POST",
+                        body: formData,
+                    });
+                    // Stop polling on completion, but leave the bar visible
+                    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+                    let result = null;
+                    const contentType = res.headers.get("content-type");
+                    
+                    // Check if response is a file download (only for add_students)
+                    // Note: remove_students now returns JSON with file_path, handled below
+                    if (contentType && (contentType.includes("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") || contentType.includes("application/octet-stream"))) {
+                        const action = document.getElementById("action").value;
+                        if (action == "add_students") {
+                            const blob = await res.blob();
+                            const contentDisposition = res.headers.get("Content-Disposition");
+                            let filename = "download.xlsx";
+                            
+                            // Extract filename from Content-Disposition header if available
+                            if (contentDisposition) {
+                                const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+                                if (filenameMatch) {
+                                    filename = filenameMatch[1];
+                                }
+                            }
+
+                            document.getElementById("result").textContent = "הפעולה הסתיימה";
+                            document.getElementById("result").focus();
+                            setProgress(100, 'done');
+                            hideProgress();
+
+                            // Create download link
+                            const url = window.URL.createObjectURL(blob);
+                            const a = document.createElement("a");
+                            a.href = url;
+                            a.download = filename;
+                            document.body.appendChild(a);
+                            a.click();
+                            a.remove();
+                            window.URL.revokeObjectURL(url);
+                            return;
+                        }
+                    }
+                    
+                    try {
+                        result = await res.json();
+                    } catch (_) {
+                        // Non-JSON responses already handled above
+                    }
+                    
+                    // Handle error responses
+                    if (result && result.error === true) {
+                        if (result.message === "credentials_missing") {
+                            showPopup();
+                        } else {
+                            // Hide progress bar on error
+                            hideProgress();
+                            document.getElementById("result").textContent = result.message;
+                            document.getElementById("result").focus();
+                        }
+                        return;
+                    }
+                    
+                    if (result && result.message)
+                    {
+                        document.getElementById("result").textContent = result.message;
+                        document.getElementById("result").focus();
+                        if (result.fileUrl) {
+                            window.location.href = result.fileUrl;
+                        }
+                    }
+                    
+                    // Handle file_path for download (remove_students failures file)
+                    // This is separate so it works for both success and error responses
+                    if (result && result.file_path) {
+                        // Download the file from the provided path
+                        const downloadUrl = `/talmud_download?path=${encodeURIComponent(result.file_path)}`;
+                        const a = document.createElement("a");
+                        a.href = downloadUrl;
+                        a.download = result.file_path.split(/[/\\]/).pop() || "download.xlsx";
+                        document.body.appendChild(a);
+                        a.click();
+                        a.remove();
+                    }
+                    else
+                    {
+                        if (result) {
+                            document.getElementById("result").textContent = JSON.stringify(result, null, 2);
+                        }
+                        document.getElementById("result").focus();
+                    }
+
+                } catch (error) {
+                    // Hide progress bar on error
+                    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+                    hideProgress();
+                    document.getElementById("result").textContent = "שגיאה בשליחת הטופס.";
+                    document.getElementById("result").focus();
+                    console.error(error);
+                }
+            });
+
+            document.getElementById("action").addEventListener("change", () => {
+                const actionSelect = document.getElementById("action");
+                const inputMethodSection = document.getElementById("inputMethodSection");
+                const fileSection = document.getElementById("fileSection");
+                const manualStudentForm = document.getElementById("manualStudentForm");
+                const downloadTemplate = document.getElementById("downloadTemplate");
+                const branchField = document.getElementById("branchField");
+                const branchInput = document.getElementById("branch");
+                const skip_students = document.getElementById("skip_students");
+
+                downloadTemplate.disabled = !action;
+                if (actionSelect.value === "add_students")
+                {
+                    branchField.style.visibility = "visible";
+                    branchInput.required = true;
+                    skip_students.style.display = "block";
+                    inputMethodSection.style.display = "block";
+                    downloadTemplate.disabled = false;
+                }
+                else
+                {
+                    inputMethodSection.style.display = "none";
+                    branchField.style.visibility = "hidden";
+                    branchInput.required = false;
+
+                    if (actionSelect.value)
+                    {
+                        skip_students.style.display = "none";
+                        downloadTemplate.disabled = false;
+                    }
+                    else
+                    {
+                        downloadTemplate.disabled = true;
+                    }
+                }
+                // אתחל את שדות הקלט
+                fileSection.style.display = "block";
+                manualStudentForm.style.display = "none";
+                document.querySelector('input[name="inputMethod"][value="file"]').checked = true;
+                downloadTemplate.textContent = "הורד טמפלט";
+            });
+
+            // החלפת אופן הזנה
+            document.getElementById("inputMethodSection").addEventListener("change", (e) => {
+                if (e.target.name === "inputMethod")
+                {
+                    const manualStudentForm = document.getElementById("manualStudentForm");
+                    const fileSection = document.getElementById("fileSection");
+
+                    if (e.target.value === "manual")
+                    {
+                        fileSection.style.display = "none";
+                        manualStudentForm.style.display = "block";
+                    }
+                    else
+                    {
+                        fileSection.style.display = "block";
+                        manualStudentForm.style.display = "none";
+                    }
+                }
+            });
+
+            // כפתור הורדת טמפלט
+            document.getElementById("downloadTemplate").addEventListener("click", () => {
+                if (!actionSelect.value) return;
+                    window.location.href = `/download_template?action=${actionSelect.value}`;
+            });
+
+            // Popup ניהול
+
+            // פונקציות לפתיחת וסגירת Popup
+            function showPopup()
+            {
+                const overlay = document.getElementById("overlay");
+                const popup = document.getElementById("popup");
+                const credentialsForm = document.getElementById("credentialsForm");
+                const submitCredentials = document.getElementById("submitCredentials");
+                const action = document.getElementById("action").value;
+
+                document.getElementById("username").value = null;
+                document.getElementById("password").value = null;
+                document.getElementById("branchField").value = null;
+                document.getElementById("overlay").style.display = "block";
+                document.getElementById("popup").style.display = "block";
+
+                if (action === "add_students")
+                {
+                    branchField.style.visibility = "visible";
+                    document.getElementById("branch").required = true;
+                }
+                else
+                {
+                    branchField.style.visibility = "hidden";
+                    document.getElementById("branch").value = "";
+                    document.getElementById("branch").required = false;
+                }
+            }
+
+            function hidePopup()
+            {
+                document.getElementById("overlay").style.display = "none";
+                document.getElementById("popup").style.display = "none";
+                document.getElementById("username").value = "";
+                document.getElementById("password").value = "";
+                document.getElementById("branch").value = "";
+                document.getElementById("branchField").style.visibility = "hidden";
+                document.getElementById("branch").required = false;
+            }
+
+            document.getElementById("submitCredentials").addEventListener("click", async function ()
+            {
+                const username = document.getElementById("username");
+                const password = document.getElementById("password");
+                const branch = document.getElementById("branch");
+                document.querySelectorAll(".error-message").forEach(el => {if (el) el.remove();});
+
+                username.classList.remove("error");
+                password.classList.remove("error");
+                branch.classList.remove("error");
+
+                let isValid = true;
+
+                if (!username.value)
+                {
+                    username.classList.add("error");
+                    username.insertAdjacentHTML('afterend', '<small class="error-message" style="color: red;">שדה חובה</small>');
+                    isValid = false;
+                }
+
+                if (!password.value)
+                {
+                    password.classList.add("error");
+                    password.insertAdjacentHTML('afterend', '<small class="error-message" style="color: red;">שדה חובה</small>');
+                    isValid = false;
+                }
+                if (branchField.style.visibility === "visible" && !branch.value)
+                {
+                    branch.classList.add("error");
+                    branch.insertAdjacentHTML('afterend', '<small class="error-message" style="color: red;">שדה חובה</small>');
+                    isValid = false;
+                }
+
+                if (!isValid)
+                {
+                    return; // עצירה אם יש שגיאות
+                }
+
+                const formData = new FormData(document.getElementById("actionForm"));
+                const skipExistingStudents = document.getElementById("skipExistingStudents");
+                formData.append("username", username.value);
+                formData.append("password", password.value);
+
+                if (!document.getElementById("branchField").hidden)
+                {
+                    formData.append("skipExistingStudents", skipExistingStudents.checked ? "true" : "false");
+                    formData.append("branch", branch.value);
+                }
+
+                hidePopup();
+                try {
+                    // Show and start polling
+                    showProgress();
+                    const actionVal = document.getElementById("action").value;
+                    if (progressTimer) { clearInterval(progressTimer); }
+                    progressTimer = setInterval(() => pollProgress(actionVal), 2000);
+                    pollProgress(actionVal);
+                    const response = await fetch("/talmud", {
+                        method: "POST",
+                        body: formData
+                    });
+
+                    // Hide popup immediately after credentials are submitted so user can see progress bar
+                    
+
+                    if (!response.ok)
+                    {
+                        // Hide progress bar on error
+                        if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+                        hideProgress();
+                        document.getElementById("result").textContent = "משהו השתבש נסה שוב";
+                        document.getElementById("result").focus();
+                    }
+                    else
+                    {
+                        // Check if response is JSON with error first
+                        const contentType = response.headers.get("content-type");
+                        if (contentType && contentType.includes("application/json")) {
+                            const result = await response.json();
+                            
+                            // Handle error responses
+                            if (result && result.error === true) {
+                                if (result.message === "credentials_missing") {
+                                    showPopup();
+                                } else {
+                                    // Hide progress bar on error
+                                    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+                                    hideProgress();
+                                    document.getElementById("result").textContent = result.message;
+                                    document.getElementById("result").focus();
+                                }
+                                return;
+                            }
+                            
+                            // Handle approve_students JSON response
+                            const action = document.getElementById("action").value;
+                            if (action == "approve_students") {
+                                document.getElementById("result").textContent = "הפעולה הסתיימה";
+                                document.getElementById("result").focus();
+                                setProgress(100, 'done');
+                                if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+                                if (result.fileUrl) {
+                                    window.location.href = result.fileUrl;
+                                }
+                            }
+                            
+                            // Handle file_path for download (remove_students failures file)
+                            if (result && result.file_path) {
+                                // Download the file from the provided path
+                                const downloadUrl = `/talmud_download?path=${encodeURIComponent(result.file_path)}`;
+                                const a = document.createElement("a");
+                                a.href = downloadUrl;
+                                a.download = result.file_path.split(/[/\\]/).pop() || "download.xlsx";
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                            }
+                        } else {
+                            // Handle file downloads (add_students Excel file)
+                            // Note: remove_students now returns JSON with file_path, handled above
+                            const action = document.getElementById("action").value;
+                            if (action == "add_students") {
+                                const blob = await response.blob();
+                                const contentDisposition = response.headers.get("Content-Disposition");
+                                let filename = "download.xlsx";
+                                
+                                // Extract filename from Content-Disposition header if available
+                                if (contentDisposition) {
+                                    const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+                                    if (filenameMatch) {
+                                        filename = filenameMatch[1];
+                                    }
+                                }
+
+                                document.getElementById("result").textContent = "הפעולה הסתיימה";
+                                document.getElementById("result").focus();
+                                setProgress(100, 'done');
+                                if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+
+                                // Create download link
+                                const url = window.URL.createObjectURL(blob);
+                                const a = document.createElement("a");
+                                a.href = url;
+                                a.download = filename;
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                                window.URL.revokeObjectURL(url);
+                            }
+                        }
+                    }
+                }
+                catch (error)
+                {
+                    console.error("Error:", error);
+                    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+                    hideProgress();
+                }
+            })
+
+            document.getElementById("downloadTemplate").addEventListener("click", function ()
+            {
+                const action = document.getElementById("action").value;
+                if (action)
+                {
+                    window.location.href = `/download_template?action=${action}`;
+                }
+            });
+        </script>
+	</body>
+</html>

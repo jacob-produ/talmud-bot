@@ -1,0 +1,10 @@
+@import './colors';
+@import './mixin';
+
+:root {
+    @each $color, $shades in $colors {
+        @each $shade, $value in $shades {
+            --clr-#{$color}-#{$shade}: #{$value};
+        }
+    }
+}

@@ -1,0 +1,20 @@
+.containerHeader {
+    display: flex;
+    padding: 0.3em;
+    background-color: gray;
+}
+
+.containerHeaderTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3em;
+    width: 100%;
+}
+
+.containerHeaderCart, .containerHeaderGoBack {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

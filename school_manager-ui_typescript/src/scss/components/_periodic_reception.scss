@@ -1,0 +1,4 @@
+.periodic_reception {
+    @include flex($align: auto);
+    flex-direction: column;
+}

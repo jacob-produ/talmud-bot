@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+	<head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <title>Table A4</title>
+      <!-- CSS -->
+      <style>
+
+
+
+body{
+  background-color: #ccc;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+  font-size: 16px;
+  }
+ .bold{
+  font-weight: bold;
+ }
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 0.5cm;
+  padding: 25px 15px;
+  position: relative;
+}
+page[size="A4"] {
+  width: 21cm;
+  height: 29.7cm;
+}
+
+@media print {
+  body, page {
+    margin: 0;
+    box-shadow: 0;
+  }
+}
+
+  </style>
+    </head>
+    <body>
+    	<page size="A4" style="padding: 30px; position:relative;">
+        <img src="C:/Users/Gal/Private/auto_robots/school_manager/modules/FormGenerator/html_templates/social-services-form-frame.png" style="position:absolute; top:0px; left:0px; width: 100%;">
+        <div style="padding: 4rem;">
+    	 <div style="text-align: center;font-weight: bold; font-size: 20px; margin-bottom: 40px;"><u> אישור לימודים    </u></div>
+
+
+       <div style="text-align:right;">
+        <div style="margin-bottom: 30px;">
+            שם המוסד: &nbsp;&nbsp;
+            <u>{institution_short_name}</u>
+            &nbsp;&nbsp;כתובת :
+            <u>{institution_city}</u>
+        </div>
+
+         <div style="margin-bottom: 30px;">
+             מס טלפון:&nbsp;&nbsp;
+             <u>{institution_phone_number}</u>
+             &nbsp;&nbsp;מספר סמל המוסד:
+             <u>{institution_identity}</u>
+         </div>
+
+         <div style="margin-bottom: 30px;">
+          הריני לאשר בזה כי (שם)&nbsp;&nbsp;
+             <u>{student_first_name} {student_last_name}</u>
+            &nbsp;&nbsp; מס תעודת זהות&nbsp;&nbsp;
+             <u>{student_identity}</u>
+             ( 9 ספרות).&nbsp;&nbsp;
+         </div>
+         <div style="margin-bottom:30px">
+          תלמיד במוסד:&nbsp;&nbsp;
+             <u>{institution_short_name}</u>
+             מתאריך &nbsp;&nbsp;
+             <u>{course_enrollment_start_date}</u>
+             ולומד אצלנו&nbsp;&nbsp;
+         </div>
+
+         <div style="margin-bottom:30px">
+          בקביעות     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <span style="font-weight: bold;">{part_of_the_day}</span> &nbsp;&nbsp;
+             בשעות:  &nbsp;&nbsp;&nbsp;
+             {hours_of_study}
+         </div>
+         <div style="margin-bottom:70px">
+          בחודש{month_of_study}קיבל מלגת לימודים בסך   <span style="font-weight: bold;">{form_amount_of_money_for_scholarship}</span> .₪
+         </div>
+         <div style="margin-bottom:30px">
+          ידוע לנו, כי אישור זה ניתן לצורך קביעת זכאות
+         </div>
+         <div style="margin-bottom:70px">
+           אני מצהיר בזה כי כל הפרטים המצוינים לעיל נכונים.
+         </div>
+
+         <div style="display: flex;">
+          <div style="margin-bottom: 40px; text-align: center;">
+            <div  style="font-weight:bold; font-size: 15px;">
+                {committee_member_first_name}  {committee_member_last_name}
+            </div>
+              שם המוסמך לחתום בשם המוסד
+          </div>
+          <div style="width:300px"></div>
+           <div style="margin-bottom: 40px; text-align: center">
+            <div  style="font-weight:bold; font-size: 15px;"> {committee_member_role}   </div> תפקידו           </div>
+         </div>
+         <div style="margin-bottom:40px">
+          תאריך
+             {generated_form_date}
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; חתימה
+             <img src="C:/Users/Gal/Private/auto_robots/school_manager/modules/FormGenerator/html_templates/sign.png" style="width: 120px;">
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;חותמת_
+             <img src="C:/Users/Gal/Private/auto_robots/school_manager/modules/FormGenerator/html_templates/Stampa.JPG" style="width: 150px;">
+         </div>
+         <div style="font-weight:bold;">
+          <u> הערה:  </u>
+         </div>
+       </div>
+
+     </div>
+
+    	</page>
+    </body>
+</html>

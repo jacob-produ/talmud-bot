@@ -1,0 +1,118 @@
+.finance_report {
+    @include flex($align: auto);
+    flex-direction: column;
+
+    &__filters {
+        display: flex;
+        margin: 1em auto;
+
+        &__inputs {
+            @include flex(space-evenly);
+            flex-direction: column;
+            margin-right: 1em;
+            height: 100%;
+            position: relative;
+
+            &__checkbox_button {
+                @include btn();
+                font-size: 0.8em;
+
+                &__search {
+                    @include btn();
+                }
+
+                &__payment {
+                    @include btn();
+                    white-space: nowrap;
+                }
+            }
+
+            &__error_message {
+                @include flex();
+                position: absolute;
+                top: 110%;
+                width: max-content;
+            }
+        }
+    }
+
+    &__tables {
+        @include flex($align: auto);
+        margin-top: 2em;
+        max-height: 50vh;
+    }
+}
+
+.paymentReportFiltersResetButton {
+    font-size: 1em;
+    width: fit-content;
+    padding: 0 0.5em;
+}
+
+.paymentReportTablesContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.paymentReportTableSearchPosition {
+    display: flex;
+    position: relative;
+    width: 30%;
+    /* direction: rtl; */
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1em;
+}
+
+.paymentReportTableSearchInput {
+    width: 100%;
+    height: 100%;
+}
+
+.paymentReportTableSearchIcon {
+    position: absolute;
+    margin-left: 5px;
+}
+
+.paymentReportTableTabsPosition {
+    position: absolute;
+    top: calc(1.2em + 15px);
+}
+
+.paymentReportTableSpin {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+.paymentReportLeftTableTab {
+    text-align: center;
+    padding: 0.5em;
+    margin-bottom: 0.1em;
+    border-width: 0.3px;
+    border-style: solid;
+    cursor: pointer;
+    background-color: darkgray
+}
+
+.paymentReportRightTableTab {
+    text-align: center;
+    padding: 0.5em;
+    margin-bottom: 0.1em;
+    border-width: 0.3px;
+    border-style: solid;
+    cursor: pointer;
+    background-color: darkgray
+}
+
+.selectedTab {
+    background-color: white !important;
+}
+
+.paymentReportRightTableSum {
+    position: absolute;
+    left: 102%;
+    bottom: 0.4em;
+    white-space: nowrap;
+}

@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+log.txt
+
+# Screenshots (test files)
+screenshot_*.png
+
+# Temp files
+*.tmp
+.DS_Store
+
+# Credentials (keep safe)
+*.json
+!package.json
+
+# Test files
+test_*.py

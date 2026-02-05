@@ -1,0 +1,27 @@
+.navbarTabName {
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 1.1em;
+    cursor: pointer;
+    outline: none;
+    min-width: 150px;
+    margin: 10% 5px 0 5px;
+    white-space: nowrap;
+}
+
+.selectedNavbarTabName {
+    color: white;
+    background: linear-gradient(90deg, #4A3472 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.navbarTabNameIcon {
+  width: 1.5em;
+  margin-right: 3%;
+
+}
+
+.selectedNavbarTab {
+  -webkit-filter: invert(60%) sepia(96%) saturate(462%) hue-rotate(163deg) brightness(91%) contrast(88%);
+  filter: invert(60%) sepia(96%) saturate(462%) hue-rotate(163deg) brightness(91%) contrast(88%);
+}

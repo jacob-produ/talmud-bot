@@ -1,0 +1,202 @@
+.paymentReportFiltersContainer {
+    display: flex;
+    margin: 0 1em;
+    justify-content: center;
+    margin-top: 1em;
+}
+
+.paymentReportFiltersResetButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paymentReportFiltersResetButtonPosition {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-right: 1em;
+    height: 60%;
+}
+
+.paymentReportFiltersResetButton {
+    font-size: 1em;
+    width: fit-content;
+    padding: 0 0.5em;
+}
+
+.financeReportFiltersContainer{
+    /* direction: rtl; */
+    display: flex;
+    width: max-content;
+    white-space: nowrap;
+    font-size: 0.9em;
+}
+
+.financeReportFiltersPosition {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.financeReportFiltersTitle {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.paymentReportTablesContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+.paymentReportTableSearchPosition {
+    display: flex;
+    position: relative;
+    width: 30%;
+    /* direction: rtl; */
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1em;
+}
+
+.paymentReportTableSearchInput {
+    width: 100%;
+    height: 100%;
+}
+
+.paymentReportTableSearchIcon {
+    position: absolute;
+    margin-left: 5px;
+}
+
+.paymentReportTableTabsPosition {
+    position: absolute;
+    top: calc(1.2em + 15px);
+}
+
+.paymentReportTableSpin {
+    position: absolute;
+    top: 20%;
+    left: 40%;
+}
+
+.paymentReportLeftTableTab {
+    text-align: center;
+    padding: 0.5em;
+    margin-bottom: 0.1em;
+    border-width: 0.3px;
+    border-style: solid;
+    cursor: pointer;
+    background-color: darkgray
+}
+
+.paymentReportRightTableTab {
+    text-align: center;
+    padding: 0.5em;
+    margin-bottom: 0.1em;
+    border-width: 0.3px;
+    border-style: solid;
+    cursor: pointer;
+    background-color: darkgray
+}
+
+.selectedTab {
+    background-color: white !important;
+}
+
+.paymentReportRightTableSum {
+    position: absolute;
+    left: 102%;
+    bottom: 0.4em;
+    white-space: nowrap;
+}
+
+.makeLinkPopup__listInput {
+    width: 100%;
+    padding: 3px 0.5px 3px 0.5px;
+    font-size: 1em;
+}
+
+.makeLinkPopup {
+    width: 70%;
+    height: 70%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    min-width: fit-content;
+    min-height: 270px;
+    margin: 10px;
+}
+
+.makeLinkPopup__close {
+    display: flex;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.makeLinkPopup__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.makeLinkPopup__header__newAccount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.makeLinkPopup__details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.makeLinkPopup__form {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.makeLinkPopup__form__label {
+    width: 100%;
+    background-color: gray;
+    padding-right: 5px;
+}
+
+.makeLinkPopup__button__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 100%;
+}
+
+.makeLinkPopup__button {
+    font-size: 1em;
+    width: fit-content;
+    padding: 0 0.5em;
+}
+
+.makeLinkPopup__loader {
+    position: absolute;
+    top: 48%;
+    left: 48%;
+}
+
+.restorePopup{
+    width: 20%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    min-width: fit-content;
+    min-height: fit-content;
+    margin: 10px;
+}

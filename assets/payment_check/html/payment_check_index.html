@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>יצירת צ'קים מתשלום</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #eef2f7;
+        }
+
+        header {
+            background-color: #005bb5;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .container {
+            margin: 50px auto;
+            max-width: 450px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px 20px;
+        }
+
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload label {
+            display: inline-block;
+            background-color: #0078d7;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .file-upload label:hover {
+            background-color: #005bb5;
+        }
+
+        .file-name {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>יצירת צ'קים לתשלום</h1>
+    </header>
+    <div class="container">
+        <!-- Download Template -->
+       <a href="javascript:void(0);" id="downloadTemplate" class="button-link active">הורדת קובץ דוגמא</a>
+
+         <form id="uploadForm" action="/payment_check_generator" method="POST" enctype="multipart/form-data">
+            <div class="file-upload">
+                <label for="fileUpload">בחר קובץ אקסל</label>
+                <input type="file" id="fileUpload" name="fileUpload" accept=".xls,.xlsx" required>
+                <span class="file-name">לא נבחר קובץ</span>
+            </div>
+            <button type="submit">שלח קובץ</button>
+        </form>
+    </div>
+    <footer>
+        &copy; 2024 מערכת צ'קים מתקדמת
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('fileUpload');
+        const fileNameDisplay = document.querySelector('.file-name');
+
+
+        document.getElementById("downloadTemplate").addEventListener("click", () => {
+
+                // Construct the URL with the selected action as a query parameter
+                const url = `/download_template?module=payment_checks`;
+
+                // Open the URL to trigger the download
+                window.location.href = url;
+            });
+        // Update file name when a file is selected
+        fileInput.addEventListener('change', function () {
+            fileNameDisplay.textContent = fileInput.files.length > 0
+                ? fileInput.files[0].name
+                : 'לא נבחר קובץ';
+        });
+
+        // Validate form submission
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            if (!fileInput.value) {
+                e.preventDefault();
+                alert('אנא בחר קובץ להעלאה!');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+.login {
+    @include size(100vw, 100vh);
+    @include flex();
+    @include scrollbar();
+
+    @media screen and (max-width: 305px) {
+        justify-content: flex-start;
+    }
+
+    background-image: linear-gradient(140deg,#cbcbcb,#ffffff,#d9d9d9 100%);
+
+    &__logo {
+        width: 20em;
+    }
+
+    &__title {
+        @include flex($align:auto);
+        margin: 5% 0 5% 0;
+        font-size: 1.7em;
+    }
+
+    &__border {
+        width: 35vw;
+        border: 1px solid darkgray;
+        border-radius: 10px;
+        max-width: 550px;
+        min-width: 300px;
+
+        &__position {
+            @include flex();
+            flex-direction: column;
+            margin: 50px;
+        }
+    }
+
+    &__form {
+        @include flex();
+        flex-direction: column;
+        font-size: 1em;
+        width: 100%;
+
+        &__input {
+            width: 100%;
+            margin-bottom: 5%;
+            border-radius: 5px;
+            border: 1px solid #CFCFCF;
+            outline: none;
+            padding: 0.5em;
+            font-size: 1em;
+
+            &__checkbox {
+                @include flex(auto);
+                margin-bottom: 5%;
+                cursor: pointer;
+                width: fit-content;
+                align-self: center;
+                outline: none;
+                font-size: 1em;
+            }
+        }
+
+        &__submit {
+            width: 50%; 
+            margin: auto;
+            background-color: #efefef;
+            border: 1px solid #767676;
+            outline: none;
+            margin-bottom: 5%;
+            font-size: 1em;
+            cursor: pointer;
+            padding: 0.5em;
+            border-radius: 5px;
+        }
+    }
+
+    &__error_message {
+        text-align: center;
+        color: red;
+        margin-bottom: 5%;
+    }
+}

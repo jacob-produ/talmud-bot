@@ -1,0 +1,70 @@
+.container {
+    @include size(100%, 100%);
+    @include scrollbar();
+
+    display: flex;
+    font-size: 1em;
+    background-color: #f7f7f7;
+    // min-width: fit-content;
+    // overflow: auto;
+    // overflow-x: hidden;
+
+    &__header {
+        display: flex;
+        padding: 0.3em;
+        background-color: gray;
+
+        &__go_back {
+            @include flex();
+            cursor: pointer;
+
+            &__icon {
+                margin-right: 5px;
+            }
+        }
+
+        &__title {
+            @include flex();
+            font-size: 1.3em;
+            width: 100%;
+        }
+
+        &__cart {
+            @include flex();
+            cursor: pointer;
+        }
+    }
+
+    &__navbar {
+        height: 100%;
+        // min-height: 100%;
+        background-color: #c5c5c5;
+
+        &__title {
+            text-align: center;
+        }
+
+        &__tab {
+            @include flex($justify: auto);
+            font-size: 1.1em;
+            cursor: pointer;
+            min-width: 150px;
+            margin: 10% 5px 0 5px;
+            white-space: nowrap;
+
+            &[data-selected=true] {
+                color: #3BB2DC;
+            }
+
+            &[data-under_tab=true] {
+                margin: 5% 10px 0 5px;
+            }
+        }
+    }
+
+    &__body {
+        @include size(100%, 97%);
+        // height: 97%;
+        margin-bottom: 10px;
+    }
+}

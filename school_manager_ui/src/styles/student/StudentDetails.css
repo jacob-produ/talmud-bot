@@ -1,0 +1,37 @@
+.studentDetailsTableTab {
+    text-align: center;
+    padding: 0.5em;
+    margin-right: 0.1em;
+    border-width: 0.3px;
+    border-style: solid;
+    cursor: pointer;
+    background-color: darkgray
+}
+
+.studentDetails{
+    display: flex;
+    height: fit-content;
+    justify-content: space-between;
+    margin: 2em 5px;
+    min-width: 700px;
+}
+
+.studentDetailsData{
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.studentDetails input, .studentDetails select{
+    height: 100%;
+    width: 100%;
+    margin-left: 3px;
+    margin-right: 1px;
+    font-size: 0.95em;
+}
+
+.studentDetailsTableSpin {
+    position: absolute;
+    top: 2em;
+    left: 48%;
+}
